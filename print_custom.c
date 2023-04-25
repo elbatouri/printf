@@ -1,18 +1,14 @@
 #include "main.h"
 
 /**
- * print_bigS - Non printable characters
- * (0 < ASCII value < 32 or >= 127) are
- * printed this way: \x, followed by the ASCII code
- * value in hexadecimal (upper case - always 2 characters)
+ * print_bigS - print Non printable characters
  * @l: va_list arguments from _printf
- * @f: pointer to the struct flags that determines
- * if a flag is passed to _printf
+ * @f: pointer to determines if a flag is passed to _printf
  * Return: number of char printed
  */
 int print_bigS(va_list l, flags_t *f)
 {
-	int i, count = 0;
+	int i, sum = 0;
 	char *res;
 	char *s = va_arg(l, char *);
 
@@ -25,28 +21,27 @@ int print_bigS(va_list l, flags_t *f)
 		if (s[i] > 0 && (s[i] < 32 || s[i] >= 127))
 		{
 			_puts("\\x");
-			count += 2;
+			sum += 2;
 			res = convert(s[i], 16, 0);
 			if (!res[1])
-				count += _putchar('0');
-			count += _puts(res);
+				sum += _putchar('0');
+			sum += _puts(res);
 		}
 		else
-			count += _putchar(s[i]);
+			sum += _putchar(s[i]);
 	}
-	return (count);
+	return (sum);
 }
 
 /**
- * print_rev - prints a string in reverse
+ * print_rev - prints a string reversed
  * @l: argument from _printf
- * @f: pointer to the struct flags that determines
- * if a flag is passed to _printf
+ * @f: pointer that determines if a flag is passed to _printf
  * Return: length of the printed string
  */
 int print_rev(va_list l, flags_t *f)
 {
-	int i = 0, j;
+	int i = 0, k;
 	char *s = va_arg(l, char *);
 
 	(void)f;
@@ -56,8 +51,8 @@ int print_rev(va_list l, flags_t *f)
 	while (s[i])
 		i++;
 
-	for (j = i - 1; j >= 0; j--)
-		_putchar(s[j]);
+	for (k = i - 1; k >= 0; k--)
+		_putchar(s[k]);
 
 	return (i);
 }
@@ -71,27 +66,27 @@ int print_rev(va_list l, flags_t *f)
  */
 int print_rot13(va_list l, flags_t *f)
 {
-	int i, j;
+	int i, k;
 	char rot13[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	char ROT13[] = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 	char *s = va_arg(l, char *);
 
 	(void)f;
-	for (j = 0; s[j]; j++)
+	for (k = 0; s[k]; k++)
 	{
-		if (s[j] < 'A' || (s[j] > 'Z' && s[j] < 'a') || s[j] > 'z')
-			_putchar(s[j]);
+		if (s[k] < 'A' || (s[k] > 'Z' && s[k] < 'a') || s[k] > 'z')
+			_putchar(s[k]);
 		else
 		{
 			for (i = 0; i <= 52; i++)
 			{
-				if (s[j] == rot13[i])
+				if (s[k] == rot13[k])
 					_putchar(ROT13[i]);
 			}
 		}
 	}
 
-	return (j);
+	return (k);
 }
 
 /**

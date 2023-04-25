@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _printf - print as specified to a format
+ * _printf - print as specified format
  * @format: string define the characters and the specifiers
  * Return: length of the string in output
  */
